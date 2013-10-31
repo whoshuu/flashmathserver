@@ -1,1 +1,1 @@
-web: gunicorn flashmathserver:wsgi
+web: gunicorn flashmathserver.wsgi
