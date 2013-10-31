@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Question(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    text = models.CharField(max_length='300')
+
+    class Meta:
+        ordering = ('created',)
