@@ -18,3 +18,12 @@ class Question(models.Model):
 
     class Meta:
         ordering = ('created',)
+
+
+class Score(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    subject = models.CharField(max_length='100')
+    value = models.SmallIntegerField()
+
+    class Meta:
+        ordering = ('created', )
