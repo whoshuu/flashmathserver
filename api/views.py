@@ -33,7 +33,7 @@ class GenQuiz(APIView):
             serializer = QuizSerializer(quiz)
             return Response(serializer.data)
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(subject, status=status.HTTP_400_BAD_REQUEST)
 
 
 class QuestionList(APIView):
