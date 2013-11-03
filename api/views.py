@@ -13,16 +13,14 @@ class ScoreList(APIView):
         serializer = ScoreSerializer(scores, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        data = request.DATA
-        serializer = ScoreSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            subject = data['subject']
-            scores = Score.objects.all().filter(subject=subject)
-            ser = ScoreSerializer(scores, many=True)
-            return Response(ser.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ScorePost(APIView):
+    def get(self, request, subject, value, format=None):
+        score = Score(subject=subject, value=value)
+        score.save()
+        scores = Score.objects.all().filter(subject=subject)
+        serializer = ScoreSerializer(scores, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class QuizList(APIView):
