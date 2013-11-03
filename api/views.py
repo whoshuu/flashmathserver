@@ -11,7 +11,7 @@ class QuizList(APIView):
     def get(self, request, format=None):
         quizzes = Quiz.objects.all()
         serializer = QuizSerializer(quizzes, many=True)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data)
 
 
 class GenQuiz(APIView):
