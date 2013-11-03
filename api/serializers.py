@@ -9,7 +9,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class QuizSerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True)
+    questions = QuestionSerializer(many=True, source='question_set')
     class Meta:
         model = Quiz
         fields = ('id', 'created', 'subject', 'questions')
