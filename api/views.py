@@ -9,6 +9,12 @@ import random
 
 class QuizList(APIView):
     def get(self, request, format=None):
+        quizzes = Quiz.objects.all()
+        serializer = QuizSerializer(quizzes, many=True)
+        return Response(serializer.data)
+
+
+    def post(self, request, format=None):
         #data = request.DATA
         #subject = data['subject']
         #if subject is 'fractions':
