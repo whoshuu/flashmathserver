@@ -16,6 +16,7 @@ class QuizList(APIView):
 
 class GenQuiz(APIView):
     def get(self, request, subject, format=None):
+        print subject
         if subject == 'fractions':
             quiz = Quiz(subject='fractions')
             quiz.save()
