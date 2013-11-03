@@ -18,3 +18,21 @@ class QuestionList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class QuestionDetail(APIView):
+    def get_question(self, pk, format=None):
+        try:
+            return Question.objects.get(pk=pk)
+        except Question.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        question = self.get_question(pk)
+        serializer = QuestionSerializer(question)
+        return Response(serializer.data)
+
+    def delete(self, request, pk, format=None):
+        question = self.get_question(pk)
+        question.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
