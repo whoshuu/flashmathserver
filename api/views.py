@@ -1,5 +1,5 @@
-from api.models import Question
-from api.serializers import QuestionSerializer
+from api.models import Question, Quiz
+from api.serializers import QuestionSerializer, QuizSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
