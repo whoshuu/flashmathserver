@@ -14,8 +14,8 @@ class QuizList(APIView):
         return Response(serializer.data)
 
 
-    def post(self, request, format=None):
-        subject = request.POST['subject']
+class GenQuiz(APIView):
+    def get(self, request, subject, format=None):
         if subject == 'fractions':
             quiz = Quiz(subject='fractions')
             quiz.save()
