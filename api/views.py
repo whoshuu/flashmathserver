@@ -14,26 +14,22 @@ class QuizList(APIView):
         return Response(serializer.data)
 
 
-class GenQuiz(APIView):
-    def get(self, request, subject, format=None):
-        print subject
-        if subject == 'fractions':
-            quiz = Quiz(subject='fractions')
+class FractionQuiz(APIView):
+    def get(self, request, format=None):
+        quiz = Quiz(subject='fractions')
+        quiz.save()
+        for i in range(10):
+            multiplier = random.randint(2,9)
+            numerator = random.randint(1, 25)
+            denom = random.randint(numerator + 1, numerator + 25)
+            ans_denom = denom * multiplier
+            answer = numerator * multiplier
+            text = str(numerator) + '/' + str(denom) + ' is equal to @_@ /' + str(ans_denom)
+            question = Question(text=text, answer=str(answer), quiz=quiz)
+            question.save()
             quiz.save()
-            for i in range(10):
-                multiplier = random.randint(2,9)
-                numerator = random.randint(1, 25)
-                denom = random.randint(numerator + 1, numerator + 25)
-                ans_denom = denom * multiplier
-                answer = numerator * multiplier
-                text = str(numerator) + '/' + str(denom) + ' is equal to @_@ /' + str(ans_denom)
-                question = Question(text=text, answer=str(answer), quiz=quiz)
-                question.save()
-                quiz.save()
-            serializer = QuizSerializer(quiz)
-            return Response(serializer.data)
-        else:
-            return Response(subject, status=status.HTTP_400_BAD_REQUEST)
+        serializer = QuizSerializer(quiz)
+        return Response(serializer.data)
 
 
 class QuestionList(APIView):
