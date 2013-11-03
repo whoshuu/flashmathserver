@@ -14,25 +14,25 @@ class QuizList(APIView):
         return Response(serializer.data)
 
 
-    #def post(self, request, format=None):
-   #     subject = self.kwargs['subject']
-   #     if subject == 'fractions':
-   #         quiz = Quiz(subject='fractions')
-   #         quiz.save()
-   #         for i in range(10):
-   #             multiplier = random.randint(2,9)
-   #             numerator = random.randint(1, 25)
-   #             denom = random.randint(numerator + 1, numerator + 25)
-   #             ans_denom = denom * multiplier
-   #             answer = numerator * multiplier
-   #             text = str(numerator) + '/' + str(denom) + ' is equal to @_@/' + str(ans_denom)
-   #             question = Question(text=text, answer=str(answer), quiz=quiz)
-   #             question.save()
-   #             quiz.save()
-   #         serializer = QuizSerializer(quiz)
-   #         return Response(serializer.data)
-   #     else:
-   #         return Response(status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        subject = self.kwargs['subject']
+        if subject == 'fractions':
+            quiz = Quiz(subject='fractions')
+            quiz.save()
+            for i in range(10):
+                multiplier = random.randint(2,9)
+                numerator = random.randint(1, 25)
+                denom = random.randint(numerator + 1, numerator + 25)
+                ans_denom = denom * multiplier
+                answer = numerator * multiplier
+                text = str(numerator) + '/' + str(denom) + ' is equal to @_@/' + str(ans_denom)
+                question = Question(text=text, answer=str(answer), quiz=quiz)
+                question.save()
+                quiz.save()
+            serializer = QuizSerializer(quiz)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class QuestionList(APIView):
