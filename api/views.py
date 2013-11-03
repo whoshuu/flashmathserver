@@ -15,8 +15,7 @@ class QuizList(APIView):
 
 
     def post(self, request, format=None):
-        subject = request.DATA
-        print subject
+        subject = request.POST['subject']
         if subject == 'fractions':
             quiz = Quiz(subject='fractions')
             quiz.save()
