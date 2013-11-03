@@ -25,7 +25,8 @@ class FractionQuiz(APIView):
             ans_denom = denom * multiplier
             answer = numerator * multiplier
             text = str(numerator) + '/' + str(denom) + ' is equal to @_@ /' + str(ans_denom)
-            question = Question(text=text, answer=str(answer), quiz=quiz)
+            explanation = 'The correct answer is ' + str(answer) + ' because ' + str(numerator) + '/' + str(denom) + ' times ' + str(multiplier) + '/' + str(multiplier) + ' is ' + str(answer) + '/' + str(ans_denom)
+            question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
             quiz.save()
         serializer = QuizSerializer(quiz)

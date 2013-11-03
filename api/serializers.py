@@ -5,7 +5,7 @@ from rest_framework import serializers
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'created', 'text', 'answer')
+        fields = ('id', 'created', 'text', 'answer', 'explanation')
 
 
 class QuizSerializer(serializers.ModelSerializer):
