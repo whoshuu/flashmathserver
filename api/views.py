@@ -25,7 +25,7 @@ class QuizList(APIView):
                 denom = random.randint(numerator + 1, numerator + 25)
                 ans_denom = denom * multiplier
                 answer = numerator * multiplier
-                text = str(numerator) + '/' + str(denom) + ' is equal to @_@/' + str(ans_denom)
+                text = str(numerator) + '/' + str(denom) + ' is equal to @_@ /' + str(ans_denom)
                 question = Question(text=text, answer=str(answer), quiz=quiz)
                 question.save()
                 quiz.save()
