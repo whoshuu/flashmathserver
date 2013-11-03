@@ -7,7 +7,7 @@ from rest_framework import status
 import random
 
 
-class ScorePost(APIVIew):
+class ScorePost(APIView):
     def post(self, request, format=None):
         data = request.DATA
         serializer = ScoreSerializer(data=data)
