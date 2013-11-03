@@ -12,4 +12,4 @@ class QuizSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True)
     class Meta:
         model = Quiz
-        fields = ('id', 'created', 'questions')
+        fields = ('id', 'created', 'subject', 'questions')
