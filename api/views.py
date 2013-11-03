@@ -7,7 +7,12 @@ from rest_framework import status
 import random
 
 
-class ScorePost(APIView):
+class ScoreList(APIView):
+    def get(self, request, format=None):
+        scores = Score.objects.all()
+        serializer = ScoreSerializer(scores, many=True)
+        return Response(serializer.data)
+
     def post(self, request, format=None):
         data = request.DATA
         serializer = ScoreSerializer(data=data)
