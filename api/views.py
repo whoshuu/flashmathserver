@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 import random
 
+num_questions = 3
+
 
 class ScoreList(APIView):
     def get(self, request, format=None):
@@ -41,10 +43,10 @@ class FractionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='fractions')
         quiz.save()
-        for i in range(3):
+        for i in range(num_questions):
             multiplier = random.randint(2, 9)
-            numerator = random.randint(1, 25)
-            denom = random.randint(numerator + 1, numerator + 25)
+            numerator = random.randint(1, 5)
+            denom = random.randint(numerator + 1, 10)
             ans_denom = denom * multiplier
             answer = numerator * multiplier
             text = str(numerator), str(denom), str(ans_denom)
@@ -60,7 +62,7 @@ class MultiplicationQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='multiplication')
         quiz.save()
-        for i in range(3):
+        for i in range(num_questions):
             x = random.randint(1, 12)
             y = random.randint(1, 12)
             answer = x * y
@@ -77,7 +79,7 @@ class AdditionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='addition')
         quiz.save()
-        for i in range(3):
+        for i in range(num_questions):
             x = random.randint(1, 50)
             y = random.randint(1, 50)
             answer = x + y
@@ -94,7 +96,7 @@ class SubtractionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='subtraction')
         quiz.save()
-        for i in range(3):
+        for i in range(num_questions):
             x = random.randint(5, 100)
             y = random.randint(1, x - 1)
             answer = x - y
@@ -111,7 +113,7 @@ class DivisionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='division')
         quiz.save()
-        for i in range(3):
+        for i in range(num_questions):
             y = random.randint(1, 12)
             answer = random.randint(1, 12)
             x = y * answer
