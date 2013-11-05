@@ -40,7 +40,7 @@ class FractionQuiz(APIView):
             denom = random.randint(numerator + 1, numerator + 25)
             ans_denom = denom * multiplier
             answer = numerator * multiplier
-            text = str(numerator) + '/' + str(denom) + ' is equal to @_@ /' + str(ans_denom)
+            text = str(numerator), str(denom), str(ans_denom)
             explanation = 'The correct answer is ' + str(answer) + ' because ' + str(numerator) + '/' + str(denom) + ' times ' + str(multiplier) + '/' + str(multiplier) + ' is ' + str(answer) + '/' + str(ans_denom)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -57,7 +57,7 @@ class MultiplicationQuiz(APIView):
             x = random.randint(1, 12)
             y = random.randint(1, 12)
             answer = x * y
-            text = str(x) + ' times ' + str(y) + ' is equal to @_@'
+            text = str(x), str(y)
             explanation = str(x) + ' times ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -74,7 +74,7 @@ class AdditionQuiz(APIView):
             x = random.randint(1, 50)
             y = random.randint(1, 50)
             answer = x + y
-            text = str(x) + ' + ' + str(y) + ' is equal to @_@'
+            text = str(x), str(y)
             explanation = str(x) + ' + ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -91,7 +91,7 @@ class SubtractionQuiz(APIView):
             x = random.randint(5, 100)
             y = random.randint(1, x - 1)
             answer = x - y
-            text = str(x) + ' - ' + str(y) + ' is equal to @_@'
+            text = str(x), str(y)
             explanation = str(x) + ' - ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -108,7 +108,7 @@ class DivisionQuiz(APIView):
             y = random.randint(1, 12)
             answer = random.randint(1, 12)
             x = y * answer
-            text = str(x) + ' divided by ' + str(y) + ' is equal to @_@'
+            text = str(x), str(y)
             explanation = str(x) + ' divided by ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
