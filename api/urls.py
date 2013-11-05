@@ -4,6 +4,7 @@ from api import views
 
 urlpatterns = patterns('',
     url(r'^scores/$', views.ScoreList.as_view()),
+    url(r'^scores/(?P<subject>[a-z]+)/$', views.ScoreSubjectList.as_view()),
     url(r'^scores/(?P<subject>[a-z]+)/(?P<value>[0-9]+)/$', views.ScorePost.as_view()),
     url(r'^quizzes/$', views.QuizList.as_view()),
     url(r'^quizzes/fractions/$', views.FractionQuiz.as_view()),

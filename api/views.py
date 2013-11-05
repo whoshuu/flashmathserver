@@ -14,6 +14,13 @@ class ScoreList(APIView):
         return Response(serializer.data)
 
 
+class ScoreSubjectList(APIView):
+    def get(self, request, subject, format=None):
+        scores = Score.objects.all().filter(subject=subject)
+        serializer = ScoreSerializer(scores, many=True)
+        return Response(serializer.data)
+
+
 class ScorePost(APIView):
     def get(self, request, subject, value, format=None):
         score = Score(subject=subject, value=value)
