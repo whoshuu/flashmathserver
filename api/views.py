@@ -49,10 +49,34 @@ class FractionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='fractions')
         quiz.save()
+        scores = Score.objects.all().filter(subject='fractions')
+        avg = 0
+        if len(scores) > 0:
+            for score in scores:
+                avg = avg + score.value
+            avg = avg / len(scores)
+        if avg < 1:
+            low_mult = 2
+            high_mult = 3
+            low_num = 1
+            high_num = 3
+            high_denom = 6
+        elif avg < 2:
+            low_mult = 3
+            high_mult = 5
+            low_num = 1
+            high_num = 4
+            high_denom = 8
+        else:
+            low_mult = 6
+            high_mult = 9
+            low_num = 1
+            high_num = 5
+            high_denom = 10
         for i in range(num_questions):
-            multiplier = random.randint(2, 9)
-            numerator = random.randint(1, 5)
-            denom = random.randint(numerator + 1, 10)
+            multiplier = random.randint(low_mult, high_mult)
+            numerator = random.randint(low_num, high_num)
+            denom = random.randint(numerator + 1, high_denom)
             ans_denom = denom * multiplier
             answer = numerator * multiplier
             text = str(numerator), str(denom), str(ans_denom)
