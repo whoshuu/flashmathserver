@@ -51,17 +51,17 @@ class FractionQuiz(APIView):
         quiz.save()
         scores = Score.objects.all().filter(subject='fractions')
         avg = 0
-        if len(scores) > 0:
+        if len(scores) > 2:
             for score in scores:
                 avg = avg + score.value
             avg = avg / len(scores)
-        if avg < 1:
+        if avg <= 1:
             low_mult = 2
             high_mult = 3
             low_num = 1
             high_num = 3
             high_denom = 6
-        elif avg < 2:
+        elif avg <= 2:
             low_mult = 3
             high_mult = 5
             low_num = 1
