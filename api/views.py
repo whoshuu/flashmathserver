@@ -10,7 +10,7 @@ num_questions = 3
 
 class TestParams(APIView):
     def get(self, request, format=None):
-        world = response.GET['hello']
+        world = request.GET['hello']
         return Response(world)
 
 
