@@ -12,11 +12,13 @@ class TestParams(APIView):
     def get(self, request, format=None):
         return Response(request.GET)
 
+
 class ScoreClear(APIView):
     def get(self, request, subject, format=None):
         scores = Score.objects.all().filter(subject=subject)
         scores.delete();
         return Response(status=status.HTTP_200_OK)
+    
 
 class ScoreList(APIView):
     def get(self, request, format=None):
