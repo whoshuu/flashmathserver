@@ -3,7 +3,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from api import views
 
 urlpatterns = patterns('',
-    url(r'^test/$', views.TestParams.as_view()),
     url(r'^scores/$', views.ScoreList.as_view()),
     url(r'^scores/(?P<subject>[a-z]+)/$', views.ScoreSubjectList.as_view()),
     url(r'^scores/(?P<subject>[a-z]+)/clear/$', views.ScoreClear.as_view()),
