@@ -11,9 +11,9 @@ num_questions = 3
 
 def get_student(token):
     try:
-        return Student.objects.get(token=request.GET['token'])
+        return Student.objects.get(token=token)
     except Student.DoesNotExist:
-        return Student.objects.create(token=request.GET['token'])
+        return Student.objects.create(token=token)
 
 
 class NewRelicPing(APIView):
