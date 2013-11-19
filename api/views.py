@@ -1,4 +1,4 @@
-from api.models import Question, Quiz, Score
+from api.models import Question, Quiz, Score, Student
 from api.serializers import QuestionSerializer, QuizSerializer, ScoreSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -9,32 +9,51 @@ import random
 num_questions = 3
 
 
+def get_student(token):
+    try:
+        return Student.objects.get(token=request.GET['token'])
+    except Student.DoesNotExist:
+        return Student.objects.create(token=request.GET['token'])
+
+
 class ScoreClear(APIView):
     def get(self, request, subject, format=None):
-        scores = Score.objects.all().filter(subject=subject)
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
+        scores = Score.objects.all().filter(subject=subject, student=student)
         scores.delete();
         return Response(status=status.HTTP_200_OK)
     
 
 class ScoreList(APIView):
     def get(self, request, format=None):
-        scores = Score.objects.all()
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
+        scores = Score.objects.all().filter(student=student)
         serializer = ScoreSerializer(scores, many=True)
         return Response(serializer.data)
 
 
 class ScoreSubjectList(APIView):
     def get(self, request, subject, format=None):
-        scores = Score.objects.all().filter(subject=subject)
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
+        scores = Score.objects.all().filter(subject=subject, student=student)
         serializer = ScoreSerializer(scores, many=True)
         return Response(serializer.data)
 
 
 class ScorePost(APIView):
     def get(self, request, subject, value, format=None):
-        score = Score(subject=subject, value=value)
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
+        score = Score(subject=subject, value=value, student=student)
         score.save()
-        scores = Score.objects.all().filter(subject=subject)
+        scores = Score.objects.all().filter(subject=subject, student=student)
         serializer = ScoreSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
