@@ -56,13 +56,13 @@ class FractionQuiz(APIView):
             for score in scores:
                 avg = avg + score.value
             avg = avg / len(scores)
-        if avg <= 1:
+        if avg <= num_questions / 3.0:
             low_mult = 2
             high_mult = 3
             low_num = 1
             high_num = 3
             high_denom = 6
-        elif avg <= 2:
+        elif avg <= (2 * num_questions) / 3.0:
             low_mult = 3
             high_mult = 5
             low_num = 1
@@ -93,9 +93,18 @@ class MultiplicationQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='multiplication')
         quiz.save()
+        if avg <= num_questions / 3.0:
+            low = 1
+            high = 4
+        elif avg <= (2 * num_questions) / 3.0:
+            low = 3
+            high = 7
+        else:
+            low = 6
+            high = 12
         for i in range(num_questions):
-            x = random.randint(1, 12)
-            y = random.randint(1, 12)
+            x = random.randint(low, high)
+            y = random.randint(low, high)
             answer = x * y
             text = str(x), str(y)
             explanation = str(x) + ' times ' + str(y) + ' is equal to ' + str(answer)
@@ -110,9 +119,18 @@ class AdditionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='addition')
         quiz.save()
+        if avg <= num_questions / 3.0:
+            low = 1
+            high = 9
+        elif avg <= (2 * num_questions) / 3.0:
+            low = 5
+            high = 20
+        else:
+            low = 15
+            high = 99
         for i in range(num_questions):
-            x = random.randint(1, 50)
-            y = random.randint(1, 50)
+            x = random.randint(low, high)
+            y = random.randint(low, high)
             answer = x + y
             text = str(x), str(y)
             explanation = str(x) + ' + ' + str(y) + ' is equal to ' + str(answer)
@@ -127,9 +145,22 @@ class SubtractionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='subtraction')
         quiz.save()
+        quiz.save()
+        if avg <= num_questions / 3.0:
+            low_x = 3
+            low_y = 1
+            high = 9
+        elif avg <= (2 * num_questions) / 3.0:
+            low_x = 5
+            low_y = 3
+            high = 20
+        else:
+            low_x = 15
+            low_y = 11
+            high = 99
         for i in range(num_questions):
-            x = random.randint(5, 100)
-            y = random.randint(1, x - 1)
+            x = random.randint(low_x, high)
+            y = random.randint(low_y, x - 1)
             answer = x - y
             text = str(x), str(y)
             explanation = str(x) + ' - ' + str(y) + ' is equal to ' + str(answer)
@@ -144,9 +175,18 @@ class DivisionQuiz(APIView):
     def get(self, request, format=None):
         quiz = Quiz(subject='division')
         quiz.save()
+        if avg <= num_questions / 3.0:
+            low = 1
+            high = 4
+        elif avg <= (2 * num_questions) / 3.0:
+            low = 3
+            high = 7
+        else:
+            low = 6
+            high = 12
         for i in range(num_questions):
-            y = random.randint(1, 12)
-            answer = random.randint(1, 12)
+            y = random.randint(low, high)
+            answer = random.randint(low, high)
             x = y * answer
             text = str(x), str(y)
             explanation = str(x) + ' divided by ' + str(y) + ' is equal to ' + str(answer)
