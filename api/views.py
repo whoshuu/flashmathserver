@@ -72,9 +72,12 @@ class QuizList(APIView):
 
 class FractionQuiz(APIView):
     def get(self, request, format=None):
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
         quiz = Quiz(subject='fractions')
         quiz.save()
-        scores = Score.objects.all().filter(subject='fractions')
+        scores = Score.objects.all().filter(subject='fractions', student=student)
         avg = 0
         if len(scores) > 2:
             for score in scores:
@@ -115,8 +118,17 @@ class FractionQuiz(APIView):
 
 class MultiplicationQuiz(APIView):
     def get(self, request, format=None):
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
         quiz = Quiz(subject='multiplication')
         quiz.save()
+        scores = Score.objects.all().filter(subject='multiplication', student=student)
+        avg = 0
+        if len(scores) > 2:
+            for score in scores:
+                avg = avg + score.value
+            avg = avg / len(scores)
         if avg <= num_questions / 3.0:
             low = 1
             high = 4
@@ -141,8 +153,17 @@ class MultiplicationQuiz(APIView):
 
 class AdditionQuiz(APIView):
     def get(self, request, format=None):
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
         quiz = Quiz(subject='addition')
         quiz.save()
+        scores = Score.objects.all().filter(subject='addition', student=student)
+        avg = 0
+        if len(scores) > 2:
+            for score in scores:
+                avg = avg + score.value
+            avg = avg / len(scores)
         if avg <= num_questions / 3.0:
             low = 1
             high = 9
@@ -167,9 +188,17 @@ class AdditionQuiz(APIView):
 
 class SubtractionQuiz(APIView):
     def get(self, request, format=None):
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
         quiz = Quiz(subject='subtraction')
         quiz.save()
-        quiz.save()
+        scores = Score.objects.all().filter(subject='subtraction', student=student)
+        avg = 0
+        if len(scores) > 2:
+            for score in scores:
+                avg = avg + score.value
+            avg = avg / len(scores)
         if avg <= num_questions / 3.0:
             low_x = 3
             low_y = 1
@@ -197,8 +226,17 @@ class SubtractionQuiz(APIView):
 
 class DivisionQuiz(APIView):
     def get(self, request, format=None):
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
         quiz = Quiz(subject='division')
         quiz.save()
+        scores = Score.objects.all().filter(subject='division', student=student)
+        avg = 0
+        if len(scores) > 2:
+            for score in scores:
+                avg = avg + score.value
+            avg = avg / len(scores)
         if avg <= num_questions / 3.0:
             low = 1
             high = 4
@@ -214,6 +252,81 @@ class DivisionQuiz(APIView):
             x = y * answer
             text = str(x), str(y)
             explanation = str(x) + ' divided by ' + str(y) + ' is equal to ' + str(answer)
+            question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
+            question.save()
+            quiz.save()
+        serializer = QuizSerializer(quiz)
+        return Response(serializer.data)
+
+
+class GeometryQuiz(APIView):
+    def get(self, request, format=None):
+        if not 'token' in request.GET:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        student = get_student(request.GET['token'])
+        quiz = Quiz(subject='geometry')
+        quiz.save()
+        area = random.choice(['Area', 'Perimeter'])
+        scores = Score.objects.all().filter(subject='geometry', student=student)
+        avg = 0
+        if len(scores) > 2:
+            for score in scores:
+                avg = avg + score.value
+            avg = avg / len(scores)
+        if avg <= num_questions / 3.0:
+            shape = 'Square'
+            low = 2
+            high = 5
+        elif avg <= (2 * num_questions) / 3.0:
+            shape = random.choice(['Square', 'Rectangle'])
+            low = 3
+            high = 9
+        else:
+            shape = random.choice(['Square', 'Rectangle', 'Triangle'])
+            low = 6
+            high = 20
+        for i in range(num_questions):
+            val = ''
+            if shape == 'Square':
+                x = random.randint(low, high)
+                if area == 'Area':
+                    answer = x * x
+                elif area == 'Perimeter':
+                    answer = 4 * x
+                val = str(x)
+            elif shape == 'Rectangle':
+                x = random.randint(low, high)
+                y = random.randint(low, high)
+                if area == 'Area':
+                    answer = x * y
+                elif area == 'Perimeter':
+                    answer = 2 * (x + y)
+                val = str(x) + ' ' + str(y)
+            elif shape == 'Triangle':
+                x = random.randint(low, high)
+                y = random.randint(low, high)
+                while y == x:
+                    y == random.randint(low, high)
+                if area == 'Area':
+                    answer = x * y
+                    if y > x:
+                        val = str(x) + ' ' + str(y)
+                    else:
+                        val = str(y) + ' ' + str(x)
+                elif area == 'Perimeter':
+                    pythag = random.choice([[3, 4, 5],
+                                            [5, 12, 13],
+                                            [8, 15, 17],
+                                            [7, 24, 25],
+                                            [9, 40, 41],
+                                            [11, 60, 61],
+                                            [12, 35, 37],
+                                            [16, 63, 65],
+                                            [20, 21, 29]])
+                    answer = pythag[0] + pythag[1] + pythag[2]
+                    val = str(pythag[0]) + ' ' + str(pythag[1]) + ' ' + str(pythag[2])
+            text = shape, area, val
+            explanation = 'blank on purpose'
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
             quiz.save()
