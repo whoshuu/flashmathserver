@@ -15,7 +15,6 @@ urlpatterns = patterns('',
     url(r'^quizzes/division/$', views.DivisionQuiz.as_view()),
     url(r'^questions/$', views.QuestionList.as_view()),
     url(r'^questions/(?P<pk>[0-9]+)/$', views.QuestionDetail.as_view()),
-    url(r'^paramtest/$', views.TestParams.as_view()),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)
