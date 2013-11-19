@@ -1,1 +1,1 @@
-web: gunicorn flashmathserver.wsgi
+web: newrelic-admin run-program gunicorn flashmathserver.wsgi
