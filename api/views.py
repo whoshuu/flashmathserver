@@ -16,6 +16,11 @@ def get_student(token):
         return Student.objects.create(token=request.GET['token'])
 
 
+class NewRelicPing(APIView):
+    def get(self, request, format=None):
+        return Response(status=status.HTTP_200_OK)
+
+
 class ScoreClear(APIView):
     def get(self, request, subject, format=None):
         if not 'token' in request.GET:
