@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import random
 
-num_questions = 3
+num_questions = 10
 
 
 def get_student(token):
