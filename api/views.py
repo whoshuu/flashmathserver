@@ -297,11 +297,16 @@ class GeometryQuiz(APIView):
             elif shape == 'Rectangle':
                 x = random.randint(low, high)
                 y = random.randint(low, high)
+                while y == x:
+                    y == random.randint(low, high)
                 if area == 'Area':
                     answer = x * y
                 elif area == 'Perimeter':
                     answer = 2 * (x + y)
-                val = str(x) + ' ' + str(y)
+                if y > x:
+                    val = str(x) + ' ' + str(y)
+                else:
+                    val = str(y) + ' ' + str(x)
             elif shape == 'Triangle':
                 x = random.randint(low, high)
                 y = random.randint(low, high)
