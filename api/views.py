@@ -309,6 +309,11 @@ class GeometryQuiz(APIView):
                     val = str(y) + ' ' + str(x)
             elif shape == 'Triangle':
                 x = random.randint(low, high)
+                if x % 2 == 1:
+                    if not x == high:
+                        x = x + 1
+                    else:
+                        x = x - 1
                 y = random.randint(low, high)
                 while y == x:
                     y == random.randint(low, high)
