@@ -318,7 +318,7 @@ class GeometryQuiz(APIView):
                 while y == x:
                     y == random.randint(low, high)
                 if area == 'Area':
-                    answer = x * y
+                    answer = (x * y) / 2
                     if y > x:
                         val = str(x) + ' ' + str(y)
                     else:
