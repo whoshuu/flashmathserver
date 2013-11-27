@@ -107,7 +107,7 @@ class FractionQuiz(APIView):
             denom = random.randint(numerator + 1, high_denom)
             ans_denom = denom * multiplier
             answer = numerator * multiplier
-            text = str(numerator), str(denom), str(ans_denom)
+            text = str(numerator) + ' ' + str(denom) + ' ' + str(ans_denom)
             explanation = 'The correct answer is ' + str(answer) + ' because ' + str(numerator) + '/' + str(denom) + ' times ' + str(multiplier) + '/' + str(multiplier) + ' is ' + str(answer) + '/' + str(ans_denom)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -142,7 +142,7 @@ class MultiplicationQuiz(APIView):
             x = random.randint(low, high)
             y = random.randint(low, high)
             answer = x * y
-            text = str(x), str(y)
+            text = str(x) + ' ' + str(y)
             explanation = str(x) + ' times ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -177,7 +177,7 @@ class AdditionQuiz(APIView):
             x = random.randint(low, high)
             y = random.randint(low, high)
             answer = x + y
-            text = str(x), str(y)
+            text = str(x) + ' ' + str(y)
             explanation = str(x) + ' + ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -215,7 +215,7 @@ class SubtractionQuiz(APIView):
             x = random.randint(low_x, high)
             y = random.randint(low_y, x - 1)
             answer = x - y
-            text = str(x), str(y)
+            text = str(x) + ' ' + str(y)
             explanation = str(x) + ' - ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -250,7 +250,7 @@ class DivisionQuiz(APIView):
             y = random.randint(low, high)
             answer = random.randint(low, high)
             x = y * answer
-            text = str(x), str(y)
+            text = str(x) + ' ' + str(y)
             explanation = str(x) + ' divided by ' + str(y) + ' is equal to ' + str(answer)
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
@@ -304,9 +304,9 @@ class GeometryQuiz(APIView):
                 elif area == 'Perimeter':
                     answer = 2 * (x + y)
                 if y > x:
-                    val = str(x), str(y)
+                    val = str(x) + ' ' + str(y)
                 else:
-                    val = str(y), str(x)
+                    val = str(y) + ' ' + str(x)
             elif shape == 'Triangle':
                 x = random.randint(low, high)
                 y = random.randint(low, high)
@@ -315,9 +315,9 @@ class GeometryQuiz(APIView):
                 if area == 'Area':
                     answer = x * y
                     if y > x:
-                        val = str(x), str(y)
+                        val = str(x) + ' ' + str(y)
                     else:
-                        val = str(y), str(x)
+                        val = str(y) + ' ' + str(x)
                 elif area == 'Perimeter':
                     pythag = random.choice([[3, 4, 5],
                                             [5, 12, 13],
@@ -329,8 +329,8 @@ class GeometryQuiz(APIView):
                                             [16, 63, 65],
                                             [20, 21, 29]])
                     answer = pythag[0] + pythag[1] + pythag[2]
-                    val = str(pythag[0]), str(pythag[1]), str(pythag[2])
-            text = shape, area, val
+                    val = str(pythag[0]) + ' ' + str(pythag[1]) + ' ' + str(pythag[2])
+            text = shape + ' ' + area + ' ' + val
             explanation = 'blank on purpose'
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
             question.save()
