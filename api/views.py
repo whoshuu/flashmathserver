@@ -304,9 +304,9 @@ class GeometryQuiz(APIView):
                 elif area == 'Perimeter':
                     answer = 2 * (x + y)
                 if y > x:
-                    val = str(x) + ' ' + str(y)
+                    val = str(x), str(y)
                 else:
-                    val = str(y) + ' ' + str(x)
+                    val = str(y), str(x)
             elif shape == 'Triangle':
                 x = random.randint(low, high)
                 y = random.randint(low, high)
@@ -315,9 +315,9 @@ class GeometryQuiz(APIView):
                 if area == 'Area':
                     answer = x * y
                     if y > x:
-                        val = str(x) + ' ' + str(y)
+                        val = str(x), str(y)
                     else:
-                        val = str(y) + ' ' + str(x)
+                        val = str(y), str(x)
                 elif area == 'Perimeter':
                     pythag = random.choice([[3, 4, 5],
                                             [5, 12, 13],
@@ -329,7 +329,7 @@ class GeometryQuiz(APIView):
                                             [16, 63, 65],
                                             [20, 21, 29]])
                     answer = pythag[0] + pythag[1] + pythag[2]
-                    val = str(pythag[0]) + ' ' + str(pythag[1]) + ' ' + str(pythag[2])
+                    val = str(pythag[0]), str(pythag[1]), str(pythag[2])
             text = shape, area, val
             explanation = 'blank on purpose'
             question = Question(text=text, answer=str(answer), explanation=explanation, quiz=quiz)
