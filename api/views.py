@@ -266,26 +266,26 @@ class GeometryQuiz(APIView):
         student = get_student(request.GET['token'])
         quiz = Quiz(subject='geometry')
         quiz.save()
-        area = random.choice(['Area', 'Perimeter'])
         scores = Score.objects.all().filter(subject='geometry', student=student)
         avg = 0
-        if len(scores) > 2:
-            for score in scores:
-                avg = avg + score.value
-            avg = avg / len(scores)
-        if avg <= num_questions / 3.0:
-            shape = 'Square'
-            low = 2
-            high = 5
-        elif avg <= (2 * num_questions) / 3.0:
-            shape = random.choice(['Square', 'Rectangle'])
-            low = 3
-            high = 9
-        else:
-            shape = random.choice(['Square', 'Rectangle', 'Triangle'])
-            low = 6
-            high = 20
         for i in range(num_questions):
+            area = random.choice(['Area', 'Perimeter'])
+            if len(scores) > 2:
+                for score in scores:
+                    avg = avg + score.value
+                avg = avg / len(scores)
+            if avg <= num_questions / 3.0:
+                shape = 'Square'
+                low = 2
+                high = 5
+            elif avg <= (2 * num_questions) / 3.0:
+                shape = random.choice(['Square', 'Rectangle'])
+                low = 3
+                high = 9
+            else:
+                shape = random.choice(['Square', 'Rectangle', 'Triangle'])
+                low = 6
+                high = 20
             val = ''
             if shape == 'Square':
                 x = random.randint(low, high)
